@@ -135,14 +135,30 @@
   line-height: 26px;
 }
 
-.shopify-buy__cart-item__price-and-discounts {
-  float: right;
-  text-align: right;
-  max-width: 100px;
+.shopify-buy__cart-item__properties {
+    font-size: 14px;
+    margin-top: 15px;
+    margin-left: 80px;
+    margin-bottom: 3px;
+    display: block;
+}
 
-  & .shopify-buy__cart-item__price {
-    float: none;
-  }
+.shopify-buy__cart-item__property-set {
+}
+
+.shopify-buy__cart-item__property-name {
+}
+
+.shopify-buy__cart-item__property-value {
+}
+
+.shopify-buy__cart-item__price-and-discounts {
+    float: right;
+    text-align: right;
+    max-width: 100px;
+    & .shopify-buy__cart-item__price {
+      float: none;
+    }
 }
 
 .shopify-buy__cart-item__full-price {

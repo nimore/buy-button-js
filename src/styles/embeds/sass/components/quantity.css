@@ -38,20 +38,21 @@
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
-.shopify-buy__quantity {
-  color: black;
-  width: 45px;
-  height: 30px;
-  font-size: 16px;
-  border: none;
-  text-align: center;
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
-  display: inline-block;
-  padding: 0;
-  border-radius: 0;
-  border-top: 1px solid var(--color-quantity-border);
-  border-bottom: 1px solid var(--color-quantity-border);
+.shopify-buy__quantity,
+.shopify-buy__product__line-item-input {
+    color: black;
+    width: 45px;
+    height: 30px;
+    font-size: 16px;
+    border: none;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    display: inline-block;
+    padding: 0;
+    border-radius: 0;
+    border-top: 1px solid var(--color-quantity-border);
+    border-bottom: 1px solid var(--color-quantity-border);
 }
 
 input[type=number]::-webkit-inner-spin-button,

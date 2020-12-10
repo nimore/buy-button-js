@@ -75,6 +75,10 @@ const defaults = {
       quantityWithButtons: 'shopify-buy__quantity-with-btns',
       vertical: 'shopify-buy__layout-vertical',
       horizontal: 'shopify-buy__layout-horizontal',
+      lineItemProperties: 'shopify-buy__product__line-item-properties',
+      lineItemPropertySet: 'shopify-buy__product__line-item-property-set',
+      lineItemPropertyInput: 'shopify-buy__product__line-item-input',
+      lineItemPropertyLabel: 'shopify-buy__product__line-item-label',
     },
     text: {
       button: 'ADD TO CART',
@@ -173,7 +177,8 @@ const defaults = {
     },
     text: {
       nextPageButton: 'Next page',
-    },
+      },
+    productsFirst: 20,
   },
   option: {
     templates: optionTemplates,
@@ -254,6 +259,7 @@ const defaults = {
       quantityIncrement: true,
       quantityDecrement: true,
       quantityInput: true,
+      additionalProperties: true,
     },
     order: [
       'image',
@@ -262,6 +268,7 @@ const defaults = {
       'price',
       'priceWithDiscounts',
       'quantity',
+      'additionalProperties',
     ],
     classes: {
       lineItem: 'shopify-buy__cart-item',
@@ -278,6 +285,10 @@ const defaults = {
       quantityButton: 'shopify-buy__btn--seamless',
       quantityIncrement: 'shopify-buy__quantity-increment',
       quantityDecrement: 'shopify-buy__quantity-decrement',
+      properties: 'shopify-buy__cart-item__properties',
+      propertySet: 'shopify-buy__cart-item__property-set',
+      propertyName: 'shopify-buy__cart-item__property-name',
+      propertyValue: 'shopify-buy__cart-item__property-value',
     },
     text: {
       quantityInputAccessibilityLabel: 'Quantity',

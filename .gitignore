@@ -22,3 +22,6 @@ _site
 /test/build
 config.json
 /.vscode
+/src/.vs
+/build
+/CUsersmhAppDataLocalnpm-cache/node-sass/4.12.0

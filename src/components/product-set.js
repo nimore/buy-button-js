@@ -148,12 +148,12 @@ export default class ProductSet extends Component {
       if (Array.isArray(this.storefrontId)) {
         promise = this.props.client.product.fetchMultiple(this.storefrontId);
       } else {
-        promise = this.props.client.collection.fetchWithProducts(this.storefrontId);
+        promise = this.props.client.collection.fetchWithProducts(this.storefrontId, { productsFirst: this.options.productsFirst });
       }
     } else if (this.handle) {
       promise = this.props.client.collection.fetchByHandle(this.handle).then((collection) => {
         this.storefrontId = collection.id;
-        return this.props.client.collection.fetchWithProducts(this.storefrontId);
+        return this.props.client.collection.fetchWithProducts(this.storefrontId, { productsFirst: this.options.productsFirst });
       });
     }
     return promise.then((collectionOrProducts) => {

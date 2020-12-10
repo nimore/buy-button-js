@@ -9,6 +9,7 @@ import browserFeatures from '../utils/detect-features';
 import getUnitPriceBaseUnit from '../utils/unit-price';
 import ProductView from '../views/product';
 import ProductUpdater from '../updaters/product';
+import Logger from '../utils/logger';
 
 function isFunction(obj) {
   return Boolean(obj && obj.constructor && obj.call && obj.apply);
@@ -40,6 +41,8 @@ const propertiesWhitelist = [
   'font-size',
   'font-family',
 ];
+
+const validatableInputTagNames = ['SELECT', 'INPUT', 'BUTTON', 'FIELDSET', 'TEXTAREA', 'OUTPUT'];
 
 function whitelistedProperties(selectorStyles) {
   return Object.keys(selectorStyles).reduce((filteredStyles, propertyName) => {
@@ -82,6 +85,7 @@ export default class Product extends Component {
     this.selectedVariant = {};
     this.selectedOptions = {};
     this.selectedImage = null;
+    this.lineItemProperties = {};
     this.modalProduct = Boolean(config.modalProduct);
     this.updater = new ProductUpdater(this);
     this.view = new ProductView(this);
@@ -355,6 +359,7 @@ export default class Product extends Component {
       [`click ${this.selectors.product.quantityInput}`]: this.stopPropagation.bind(this),
       [`click ${this.selectors.product.quantityButton}`]: this.stopPropagation.bind(this),
       [`change ${this.selectors.option.select}`]: this.onOptionSelect.bind(this),
+      [`change ${this.selectors.product.lineItemPropertyInput}`]: this.onLineItemPropertyChange.bind(this),
       [`click ${this.selectors.product.button}`]: this.onButtonClick.bind(this),
       [`click ${this.selectors.product.blockButton}`]: this.onButtonClick.bind(this),
       [`keyup ${this.selectors.product.blockButton}`]: this.onBlockButtonKeyup.bind(this),
@@ -644,14 +649,43 @@ export default class Product extends Component {
     });
   }
 
+  getLineItemProperties() {      
+      return Object.entries(this.lineItemProperties).map(([key, value]) => ({ key, value }));
+  }
+
+  lineItemPropertiesAreValid() {       
+    let isValid = true;
+      let els = this.view.document.getElementsByClassName(`${this.selectors.product.lineItemPropertyInput}`);
+
+      if (this.modal) {          
+          Logger.log(this.modal.view.document.getElementsByClassName(`${this.selectors.product.lineItemPropertyInput}`));          
+      }
+    Logger.log(els);
+      for (let i = 0; i < els.length; i++) {
+          Logger.log(els[i]);
+          if (validatableInputTagNames.some(t => t === els[i].tagName) && !els[i].novalidate) {
+              Logger.log(els[i].checkValidity());
+            isValid &= els[i].checkValidity();            
+        }
+    }
+
+      Logger.log(isValid);
+    return isValid;
+  }
+
   onButtonClick(evt, target) {
     evt.stopPropagation();
     if (isFunction(this.options.buttonDestination)) {
       this.options.buttonDestination(this);
     } else if (this.options.buttonDestination === 'cart') {
+        if (!this.lineItemPropertiesAreValid()) {
+            return;
+        }
       this.props.closeModal();
       this._userEvent('addVariantToCart');
-      this.props.tracker.trackMethod(this.cart.addVariantToCart.bind(this), 'Update Cart', this.selectedVariantTrackingInfo)(this.selectedVariant, this.selectedQuantity);
+      //get labels for key and read value
+      let lineItemProperties = this.getLineItemProperties();
+      this.props.tracker.trackMethod(this.cart.addVariantToCart.bind(this), 'Update Cart', this.selectedVariantTrackingInfo)(this.selectedVariant, this.selectedQuantity, true, lineItemProperties);
       if (!this.modalProduct) {
         this.props.setActiveEl(target);
       }
@@ -662,10 +696,13 @@ export default class Product extends Component {
     } else if (this.options.buttonDestination === 'onlineStore') {
       this.openOnlineStore();
     } else {
+        if (!this.lineItemPropertiesAreValid()) {
+            return;
+        }
       this._userEvent('openCheckout');
       this.props.tracker.track('Direct Checkout', {});
       let checkoutWindow;
-
+      let lineItemProperties = this.getLineItemProperties();
       if (this.config.cart.popup && browserFeatures.windowOpen()) {
         const params = (new Checkout(this.config)).params;
         checkoutWindow = window.open('', 'checkout', params);
@@ -677,6 +714,7 @@ export default class Product extends Component {
           {
             variantId: this.selectedVariant.id,
             quantity: this.selectedQuantity,
+            customAttributes: lineItemProperties
           },
         ],
       };
@@ -698,6 +736,11 @@ export default class Product extends Component {
     const value = target.options[target.selectedIndex].value;
     const name = target.getAttribute('name');
     this.updateVariant(name, value);
+  }
+
+  onLineItemPropertyChange(evt) {
+      const target = evt.target;      
+      this.lineItemProperties[target.getAttribute('data-property-name')] = target.value;
   }
 
   onQuantityBlur(evt, target) {

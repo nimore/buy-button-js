@@ -10,6 +10,7 @@ const quantityTemplate = `<div class="{{data.classes.product.quantity}} {{data.q
             {{/data.contents.quantityIncrement}}
            </div>`;
 const buttonTemplate = '<div class="{{data.classes.product.buttonWrapper}}" data-element="product.buttonWrapper"><button {{#data.buttonDisabled}}disabled{{/data.buttonDisabled}} class="{{data.classes.product.button}} {{data.buttonClass}}" data-element="product.button">{{data.buttonText}}</button></div>';
+const lineItemPropertyTemplate = '<input class="{{data.classes.product.lineItemProperty}}" type="text" aria-label="Note" value="{{data.lineItemProperty}}" data-element="product.lineItemPropertyInput"></input>'
 
 const productTemplate = {
   img: '{{#data.currentImage.srcLarge}}<div class="{{data.classes.product.imgWrapper}}" data-element="product.imgWrapper"><img alt="{{data.currentImage.altText}}" data-element="product.img" class="{{data.classes.product.img}}" src="{{data.currentImage.srcLarge}}" /></div>{{/data.currentImage.srcLarge}}',
@@ -53,6 +54,7 @@ const productTemplate = {
   description: '<div class="{{data.classes.product.description}}" data-element="product.description">{{{data.descriptionHtml}}}</div>',
   button: buttonTemplate,
   quantity: quantityTemplate,
+  lineItemProperties: lineItemPropertyTemplate,
   buttonWithQuantity: `<div class="{{data.classes.product.buttonWithQuantity}}" data-element="product.buttonWithQuantity">${quantityTemplate}${buttonTemplate}</div>`,
 };
 

@@ -48,7 +48,7 @@
 }
 
 .shopify-buy__product__price {
-  margin-bottom: var(--gutter);
+    margin-bottom: var(--gutter);
 }
 
 .shopify-buy__product-description {
@@ -138,21 +138,35 @@
   }
 }
 
-.shopify-buy__quantity {
-  border-left: 1px solid;
-  border-right: 1px solid;
-  border-radius: 3px;
+.shopify-buy__product__line-item-label {
+    display:block;
+}
+
+.shopify-buy__product__line-item-property-set {
+    margin-top:5px;
+}
+
+.shopify-buy__quantity,
+.shopify-buy__product__line-item-input {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-radius: 3px;
+}
+
+.shopify-buy__product__line-item-input {
+    margin-top:5px;
+    width:100%;
 }
 
 .shopify-buy__quantity,
 .shopify-buy__quantity-increment,
 .shopify-buy__quantity-decrement {
-  border-color: var(--color-border);
-  line-height: 1.2;
-  font-size: 15px;
-  height: auto;
-  padding-top: 12px;
-  padding-bottom: 12px;
+    border-color: var(--color-border);
+    line-height: 1.2;
+    font-size: 15px;
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 .shopify-buy__btn {
@@ -247,8 +261,9 @@
     & .shopify-buy__btn-and-quantity,
     & > .shopify-buy__btn-wrapper,
     & > .shopify-buy__quantity-container,
+    & > .shopify-buy__product__line-item-properties,
     & .shopify-buy__product__variant-selectors {
-      margin-left: calc(40% + var(--gutter-modal));
+        margin-left: calc(40% + var(--gutter-modal));
     }
   }
 }
@@ -267,8 +282,9 @@
     & .shopify-buy__btn-and-quantity,
     & > .shopify-buy__btn-wrapper,
     & > .shopify-buy__quantity-container,
+    & > .shopify-buy__product__line-item-properties,
     & .shopify-buy__product__variant-selectors {
-      margin-left: calc(60% + var(--gutter-modal));
+        margin-left: calc(60% + var(--gutter-modal));
     }
   }
 }

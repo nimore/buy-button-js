@@ -117,6 +117,7 @@ export default class Cart extends Component {
       data.text = this.config.lineItem.text;
       data.lineItemImage = this.imageForLineItem(data);
       data.variantTitle = data.variant.title === 'Default Title' ? '' : data.variant.title;
+      data.haveItemProperties = data.customAttributes && data.customAttributes.length > 0;
       return acc + this.childTemplate.render({data}, (output) => `<li id="${lineItem.id}" class=${this.classes.lineItem.lineItem}>${output}</li>`);
     }, '');
   }
@@ -419,15 +420,17 @@ export default class Cart extends Component {
    * add variant to cart.
    * @param {Object} variant - variant object.
    * @param {Number} [quantity=1] - quantity to be added.
+   * @param {Boolean} [openCart=true] - open the cart after adding.
+   * @param {Object[]} [customAttributes=[]] - line item properties.
    */
-  addVariantToCart(variant, quantity = 1, openCart = true) {
+    addVariantToCart(variant, quantity = 1, openCart = true, customAttributes = []) {
     if (quantity <= 0) {
       return null;
     }
     if (openCart) {
       this.open();
     }
-    const lineItem = {variantId: variant.id, quantity};
+    const lineItem = {variantId: variant.id, quantity, customAttributes};
     if (this.model) {
       return this.props.client.checkout.addLineItems(this.model.id, [lineItem]).then((checkout) => {
         this.model = checkout;
