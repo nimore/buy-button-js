@@ -655,21 +655,15 @@ export default class Product extends Component {
 
   lineItemPropertiesAreValid() {       
     let isValid = true;
-      let els = this.view.document.getElementsByClassName(`${this.selectors.product.lineItemPropertyInput}`);
-
-      if (this.modal) {          
-          Logger.log(this.modal.view.document.getElementsByClassName(`${this.selectors.product.lineItemPropertyInput}`));          
+    ////let els = this.view.wrapper.getElementsByClassName(this.config.product.classes.lineItemPropertyInput);      
+    let els = this.view.wrapper.querySelectorAll('[data-property-name]');      
+    for (let i = 0; i < els.length; i++) {
+      if (validatableInputTagNames.some(t => t === els[i].tagName) && !els[i].novalidate) {
+        els[i].classList.add('was-validated');
+        isValid &= els[i].checkValidity();            
       }
-    Logger.log(els);
-      for (let i = 0; i < els.length; i++) {
-          Logger.log(els[i]);
-          if (validatableInputTagNames.some(t => t === els[i].tagName) && !els[i].novalidate) {
-              Logger.log(els[i].checkValidity());
-            isValid &= els[i].checkValidity();            
-        }
     }
-
-      Logger.log(isValid);
+  
     return isValid;
   }
 

@@ -77,7 +77,7 @@ function selectorStyleGroup(selector, selectorClass, classes) {
 
 export default class iframe {
   constructor(node, config) {
-    this.el = document.createElement('iframe');
+    this.el = document.createElement('iframe');      
     this.parent = node;
     this.stylesheet = config.stylesheet;
     this.customStylesHash = config.customStyles || {};
@@ -227,7 +227,14 @@ export default class iframe {
     } else {
       this.styleTag.appendChild(this.document.createTextNode(this.css));
     }
+    
+    var newDoctype = document.implementation.createDocumentType(
+        'html',
+        '',
+        ''
+    );
 
+    this.document.insertBefore(newDoctype, this.document.childNodes[0]);
     this.document.head.appendChild(this.styleTag);
   }
 }

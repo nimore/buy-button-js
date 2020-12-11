@@ -1,5 +1,9 @@
 @import "./select";
 
+input.was-validated:invalid {
+    box-shadow: 0 0 5px 2px var(--color-red);
+}
+
 .shopify-buy__product {
   overflow: hidden;
   width: 100%;

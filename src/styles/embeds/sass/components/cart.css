@@ -144,12 +144,15 @@
 }
 
 .shopify-buy__cart-item__property-set {
+    margin-bottom: 7px;
 }
 
 .shopify-buy__cart-item__property-name {
 }
 
 .shopify-buy__cart-item__property-value {
+    color: var(--color-black);
+    font-weight: bold;
 }
 
 .shopify-buy__cart-item__price-and-discounts {

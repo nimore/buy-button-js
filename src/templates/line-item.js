@@ -30,7 +30,7 @@ const lineItemTemplates = {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M12 7H9V4H7v3H4v2h3v3h2V9h3z"/></svg><span class="visuallyhidden">{{data.text.quantityIncrementAccessibilityLabel}}</span>
               </button>
             </div>`,
-    additionalProperties: `{{#data.haveItemProperties}}<div class="{{data.classes.lineItem.properties}}" data-element="lineItem.properties">{{#data.customAttributes}}<div class="{{data.classes.lineItem.propertySet}}"><div class="{{data.classes.lineItem.propertyName}}">{{key}}</div><div class="{{data.classes.lineItem.propertyValue}}">{{value}}</div></div>{{/data.customAttributes}}</div>{{/data.haveItemProperties}}`,
+    additionalProperties: `{{#data.haveItemProperties}}<div class="{{data.classes.lineItem.properties}}" data-element="lineItem.properties">{{#data.customAttributes}}<div class="{{data.classes.lineItem.propertySet}}"><span class="{{data.classes.lineItem.propertyName}}">{{key}}</span>: <span class="{{data.classes.lineItem.propertyValue}}">{{value}}</span></div>{{/data.customAttributes}}</div>{{/data.haveItemProperties}}`,
 };
 
 export default lineItemTemplates;

@@ -265,10 +265,10 @@ const defaults = {
       'image',
       'title',
       'variantTitle',
+      'additionalProperties',
       'price',
       'priceWithDiscounts',
-      'quantity',
-      'additionalProperties',
+      'quantity',      
     ],
     classes: {
       lineItem: 'shopify-buy__cart-item',
