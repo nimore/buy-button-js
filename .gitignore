@@ -25,3 +25,4 @@ config.json
 /src/.vs
 /build
 /CUsersmhAppDataLocalnpm-cache/node-sass/4.12.0
+yarn-error.log
